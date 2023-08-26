@@ -20,6 +20,25 @@ services:
       RAILS_ENV: production
       WEB_ROLE: octc
 
+  api:
+    platform: linux/amd64
+    image: ghcr.io/indicardo/ocn:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+      - redis
+      - rabbitmq
+      - couchdb
+    ports:
+      - "3010:3000"
+    volumes:
+      - ../OCN-Data:/minecraft/repo/data
+    environment:
+      RAILS_ENV: production
+      WEB_ROLE: api
+
   mongodb:
     image: mongo
     restart: always
