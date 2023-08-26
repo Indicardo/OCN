@@ -41,6 +41,51 @@ This repo contains the following components:
 * An internal HTTP API used by Bukkit and Bungee servers to interact with the model layer
 * Several "worker" services that do miscellanous background tasks or respond to AMQP messages
 
+## Docker Compose
+
+Install Docker on your machine. Create a root folder and clone this repo and [OCN-Data](https://github.com/OvercastNetwork/OCN-Data):
+```
+mkdir website
+cd website
+git clone https://github.com/Indicardo/OCN.git
+git clone https://github.com/OvercastNetwork/OCN-Data.git
+```
+
+Then, go to the OCN directory and run the following:
+
+```
+docker compose up -d
+```
+
+Once all the containers are running, run `docker exec -ti ocn-octc-1 /bin/bash` to attach to the `octc` container. Next, run the following commands:
+
+```
+rake db:setup
+rake db:create_indexes
+rails c
+Repository[:data].load_models
+```
+
+Once you're done, run the following on the Rails shell (which you've instantiated before by running `rails c`) to create an admin user:
+
+```
+User.without_attr_protection {
+    User.create!(
+        email: 'your@email',
+        username: 'your_username',
+        password: 'password',
+        password_confirmation: 'password',
+        admin: true,
+        uuid: 'uuid'
+    ).confirm!
+}
+```
+```
+User.first.confirm!
+```
+
+You should be able to see the homepage at `http://localhost:3000`.
+
 ## Install the backend app
 
 Install the following services and configure them to run on their default
