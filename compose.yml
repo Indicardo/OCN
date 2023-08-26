@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  octc:
+    platform: linux/amd64
+    image: ghcr.io/indicardo/ocn:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+      - redis
+      - rabbitmq
+      - couchdb
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../OCN-Data:/minecraft/repo/data
+    environment:
+      RAILS_ENV: production
+      WEB_ROLE: octc
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../mongodb_data:/data/db
+
+  redis:
+    image: redis
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: overcast
+      RABBITMQ_DEFAULT_PASS: overcast
+
+  couchdb:
+    image: couchdb
+    restart: always
+    ports:
+      - "5984:5984"
+    environment:
+      COUCHDB_USER: overcast
+      COUCHDB_PASSWORD: overcast
+    volumes:
+      - ../couchdb_data:/opt/couchdb/data

@@ -1,18 +1,9 @@
-development:
+production:
   clients:
     default:
       database: pgm-prod
       hosts:
-        - localhost:27017
-  options:
-    raise_not_found_error: false
-
-test:
-  clients:
-    default:
-      database: pgm-prod
-      hosts:
-        - localhost:38128
+        - mongodb:27017
   options:
     raise_not_found_error: false
 
@@ -21,11 +12,11 @@ staging:
     default:
       database: pgm-prod
       hosts:
-        - localhost:27017
+        - mongodb:27017
   options:
     raise_not_found_error: false
 
-production:
+development:
   clients:
     default:
       database: pgm-prod

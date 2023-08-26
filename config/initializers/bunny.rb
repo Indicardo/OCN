@@ -2,7 +2,7 @@ module BUNNY
     CONFIG = {
         production: -> {
             {
-                hosts: (1..3).map{|n| "mq#{n}" },
+                host: 'rabbitmq',
                 user: "overcast",
                 password: "overcast"
             }

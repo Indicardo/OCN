@@ -3,14 +3,14 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.2'                   # Ruby on Rails
+gem 'rails', '4.2.4'                   # Ruby on Rails
 gem 'protected_attributes'
 gem 'bundler'                           # Gem management
 gem 'mongoid', '~> 5.0.0'               # MongoDB ORM
 gem 'jquery-rails'                      # Regular jQuery and UJS
 gem 'json'
 gem 'haml'
-gem 'capistrano', '2.15.5'              # Deployment
+# gem 'capistrano', '2.15.5'              # Deployment
 gem 'uuid'
 gem 'devise'                            # User registration and authentication
 gem 'tlsmail'
@@ -63,17 +63,17 @@ gem 'reverse_markdown', :github => 'OvercastNetwork/reverse_markdown', :branch =
 gem 'ruby-string-match-scorer', :github => 'bjeanes/ruby-string-match-scorer'
 
 group :production, :staging do
-    gem 'unicorn'                       # Web server
-    gem 'rvm-capistrano'                # RVM deploy integration
-    gem 'capistrano-unicorn'            # Unicorn deploy integration
-    gem 'sass-rails'                    # CSS and JS minification
-    gem 'coffee-rails'                  # CSS and JS minification
-    gem 'uglifier'                      # CSS and JS minification
-    gem 'therubyracer'                  # CSS and JS minification
+    gem 'unicorn'                                        # Web server
+    # gem 'rvm-capistrano'                               # RVM deploy integration
+    # gem 'capistrano-unicorn'                           # Unicorn deploy integration
+    gem 'sass-rails'                                     # CSS and JS minification
+    gem 'coffee-rails'                                   # CSS and JS minification
+    gem 'uglifier'                                       # CSS and JS minification
+    gem 'therubyracer'                                   # CSS and JS minification
 end
 
 group :development do
-    gem 'eventmachine', :github => 'eventmachine/eventmachine' # Thin depend, need latest for Windows
+    gem 'eventmachine', '1.2.7'                  # Thin depend, need latest for Windows
     gem 'thin'                          # Web server
     gem 'better_errors'
     gem 'binding_of_caller'
