@@ -23,9 +23,6 @@ services:
   api:
     platform: linux/amd64
     image: ghcr.io/indicardo/ocn:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
     depends_on:
       - mongodb
       - redis
@@ -38,6 +35,18 @@ services:
     environment:
       RAILS_ENV: production
       WEB_ROLE: api
+
+  worker:
+    platform: linux/amd64
+    image: ghcr.io/indicardo/ocn:latest
+    depends_on:
+      - mongodb
+      - redis
+      - rabbitmq
+      - couchdb
+    volumes:
+      - ../OCN-Data:/minecraft/repo/data
+    command: config/worker.rb
 
   mongodb:
     image: mongo
@@ -60,12 +69,9 @@ services:
       RABBITMQ_DEFAULT_PASS: overcast
 
   couchdb:
-    image: couchdb
+    image: couchdb:2.3.1
     restart: always
     ports:
       - "5984:5984"
-    environment:
-      COUCHDB_USER: overcast
-      COUCHDB_PASSWORD: overcast
     volumes:
       - ../couchdb_data:/opt/couchdb/data
